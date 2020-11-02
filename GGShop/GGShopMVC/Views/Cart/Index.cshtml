@@ -1,0 +1,83 @@
+﻿@using System.Web.Optimization
+@using GGShopMVC.AccessLayer;
+@using GGShopMVC.Models;
+@model GGShopMVC.ViewModels.CartViewModel
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="col span-4-of-5 js--topbar">
+    <div class="content">
+        @foreach (var cartitem in Model.CartItems)
+        {
+            <div class="row cart-main-row" id="cart-row-@cartitem.Product.ProductID">
+                <div class="col span-2-of-5 store-cover">
+                    <a href="@Url.Action("Details", "Store", new { id = cartitem.Product.ProductID})"><img src="@Url.ImageFolderPath(cartitem.Product.CoverFileName)" /></a>
+                </div>
+
+                <div class="col span-3-of-5 cart-main">
+                    <h3>@cartitem.Product.SellerName - <a href="@Url.Action("Details", "Store", new { id = cartitem.Product.ProductID})">@cartitem.Product.ProductName</a></h3>
+                    <div class="cart-quantity">QTY: <span id="cart-item-count-@cartitem.Product.ProductID">@cartitem.Quantity</span></div>
+                    <div class="cart-price">@cartitem.Product.Price <span>PLN</span></div>
+                    <div><a class="removeProduct" data-id="@cartitem.Product.ProductID" href="">Remove</a></div>
+                </div>
+            </div>
+        }
+
+        <div class="row">
+            <div id="cart-empty-message" @if (Model.CartItems != null && Model.CartItems.Count > 0) { <text> class="hidden" </text> }>
+                <p>Empty Cart</p>
+            </div>
+        </div>
+
+
+        <div class="row">
+            <div id="total-price">
+                Total: <span id="total-price-value">@String.Format("{0:0}", Model.TotalPrice) </span> PLN
+            </div>
+        </div>
+
+        <div class="section-button-container">
+            <a class="button-link" href="@Url.Action("Index", "Home")">Continue Shopping</a>
+            @if (Model.TotalPrice > 0)
+            {
+                <a class="button-link" id="cart-button-checkout" href="@Url.Action("Checkout", "Cart")">Checkout</a>
+            }
+        </div>
+
+    </div>
+</div>
+
+@section Scripts {
+    <script src="~/Scripts/jquery-3.4.1.min.js"></script>
+    <script type="text/javascript">
+        $(function () {
+            $(".removeProduct").click(function () {
+                var recordToDelete = $(this).attr("data-id");
+                if (recordToDelete != '') {
+                    // Send post request with AJAX
+                    $.post("/Cart/RemoveFromCart", { "productID": recordToDelete },
+                        function (response) {
+                            if (response.RemovedItemCount == 0) {
+                                $('#cart-row-' + response.RemoveItemId).fadeOut('slow', function () {
+                                    if (response.CartItemsCount == 0) {
+                                        $("#cart-empty-message").removeClass("hidden");
+                                    }
+                                });
+                            } else {
+                                $('#cart-item-count-' + response.RemoveItemId).text(response.RemovedItemCount);
+                            }
+                            if (response.CartItemsCount == 0) {
+                                $('#cart-button-checkout').addClass('hidden');
+                                $('#total-price').addClass('invisible');
+                            }
+                            $('#total-price-value').text(response.CartTotal);
+                            $('#cart-header-items-count').text(response.CartItemsCount);
+                        });
+                    return false;
+                }
+            });
+        });
+    </script>
+}

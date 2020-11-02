@@ -1,0 +1,60 @@
+﻿@model GGShopMVC.ViewModels.RegisterViewModel
+@{
+    ViewBag.Title = "Register";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="col span-4-of-5 js--topbar">
+    <div class="content register">
+        <form action="@Url.Action("Register", "Account")" method="post" object="" class="register-form">
+            @Html.AntiForgeryToken()
+            <div class="row" style="margin-bottom: 30px">
+                @Html.ValidationMessage("loginerror", "")
+                @Html.ValidationSummary()
+            </div>
+            <div class="row">
+                <div class="col span-1-of-3">
+                    @Html.LabelFor(o => o.Email, "E-mail:")
+                </div>
+                <div class="col span-2-of-3">
+                    @Html.TextBoxFor(o => o.Email)
+                    @* @Html.ValidationMessage("Email") *@
+                </div>
+            </div>
+            <div class="row">
+                <div class="col span-1-of-3">
+                    @Html.LabelFor(o => o.Password, "Password:")
+                </div>
+                <div class="col span-2-of-3">
+                    @Html.PasswordFor(o => o.Password)
+                    @* @Html.ValidationMessage("Password") *@
+                </div>
+            </div>
+            <div class="row">
+                <div class="col span-1-of-3">
+                    @Html.LabelFor(o => o.ConfirmPassword, "Confirm-Password:")
+                </div>
+                <div class="col span-2-of-3">
+                    @Html.PasswordFor(o => o.ConfirmPassword)
+                    @* @Html.ValidationMessage("Confirm-Password") *@
+                </div>
+            </div>
+            <div class="row">
+                <div class="col span-1-of-3">
+                    <label for="Submit">&nbsp;</label>
+                </div>
+                <div class="col span-2-of-3">
+                    <input id="zatwierdz" type="submit" value="Register" />
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+@section Scripts
+{
+
+    <script src="~/Scripts/jquery-3.4.1.js"></script>
+    <script src="~/Scripts/jquery.validate.js"></script>
+    <script src="~/Scripts/jquery.validate.unobtrusive.js"></script>
+}

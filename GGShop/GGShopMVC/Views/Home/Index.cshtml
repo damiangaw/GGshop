@@ -1,0 +1,56 @@
+﻿@using System.Web.Optimization
+@using GGShopMVC.AccessLayer
+@model GGShopMVC.ViewModels.HomeViewModel
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<div class="col span-4-of-5 js--topbar">
+    <div class="content">
+        <h2>Main Page</h2>
+        <div class="row">
+            <ul class="showcase-list">
+                @foreach (var bestseller in Model.Bestsellers)
+                {
+                    <li class="col span-1-of-3">
+                        <article>
+                            <a class="toCart" href="@Url.Action("AddToCart", "Cart", new {id = bestseller.ProductID})">
+                                <img src="~/Content/otherImg/cart.png" />
+                            </a>
+                            <a class="productDetails" href="@Url.Action("Details", "Store", new {id = bestseller.ProductID})">
+                                <div class="isBest"></div>
+                                <img class="Cover" src="@Url.ImageFolderPath(bestseller.CoverFileName)" />
+                                <h3>@bestseller.SellerName - @bestseller.ProductName</h3>
+                            </a>
+                        </article>
+                    </li>
+                }
+            </ul>
+        </div>
+        <div class="row">
+            <ul class="showcase-list">
+                @foreach (var product in Model.Products)
+                {
+                    <li class="col span-1-of-3">
+                        <article>
+                            <a class="toCart" href="@Url.Action("AddToCart", "Cart", new { id = product.ProductID})">
+                                <img src="~/Content/otherImg/cart.png" />
+                            </a>
+                            <a class="productDetails" href="@Url.Action("Details", "Store", new { id = product.ProductID})">
+                                <div class="isNew"></div>
+                                <img class="Cover" src="@Url.ImageFolderPath(product.CoverFileName)" />
+                                <h3>@product.SellerName - @product.ProductName</h3>
+                            </a>
+                        </article>
+                    </li>
+                }
+            </ul>
+        </div>
+    </div>
+</div>
+
+@section Scripts
+{
+    @Scripts.Render("~/bundles/scripts")
+}

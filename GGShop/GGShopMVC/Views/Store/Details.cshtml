@@ -1,0 +1,32 @@
+﻿@model GGShopMVC.Models.Product
+@using GGShopMVC.AccessLayer
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="col span-4-of-5 js--topbar">
+    <div class="content">
+        <div class="row">
+            <div class="col span-2-of-5 detail-cover">
+                <img src="@Url.ImageFolderPath(Model.CoverFileName)"/>
+
+            </div>
+
+            <div class="col span-2-of-5 detail-main">
+                <h2>@Model.ProductName</h2>
+                <h3>@Model.SellerName</h3>
+                <div class="detail-price">
+                    @Model.Price<span>PLN</span>
+                    <a href="@Url.Action("AddToCart", "Cart", new{ id = Model.ProductID})"><img src="@Url.Content("~/Content/otherImg/cart-details.png")"/>/></a>
+                </div>
+                <div class="detail-desc">
+                    @Model.Description
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+

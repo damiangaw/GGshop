@@ -1,0 +1,107 @@
+﻿@using System.Web.Optimization
+@using System.Web.Razor
+@using System.Web.UI.WebControls
+@using GGShopMVC.AccessLayer
+
+<!DOCTYPE HTML>
+<html lang="pl-PL" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8" />
+    <title>GGshop</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+
+    <link rel="stylesheet" type="text/css" href="@Url.Content("~/Content/css/Grid.css")" />
+    <link rel="stylesheet" type="text/css" href="@Url.Content("~/Content/css/style.css")" />
+    <link rel="stylesheet" type="text/css" href="@Url.Content("~/Content/css/animate.css")" />
+    <link href="https://fonts.googleapis.com/css?family=Lato:400,700,700i,900,900i&display=swap&subset=latin-ext" rel="stylesheet">
+    <script src="//unpkg.com/ionicons@4.5.10-0/dist/ionicons.js"></script>
+    
+    @Styles.Render("~/Content/themes/base/css")
+</head>
+
+<body>
+<header class="header2">
+    <div class="row">
+        <nav class="main-nav">
+            <div class="logo">
+                <img src="@Url.Content("~/Content/css/img/logo.png")" alt="GGshop logo">
+            </div>
+            <ul class="menu">
+                <li>
+                    <a href="@Url.Action("Index", "Home", new { viewname = "index"})">HOME</a>
+                </li>
+                <li>
+                    <a href="@Url.Action("StaticContent", "Home", new { viewname = "about" })">ABOUT US</a>
+                </li>
+                <li>
+                    <a href="@Url.Action("Login", "Account", new { viewname = "login"})">LOGIN</a>
+                </li>
+                <li>
+                    <a href="@Url.Action("Register", "Account", new { viewname = "register"})">REGISTER</a>
+                </li>
+                <li>
+                    <a href="@Url.Action("Index", "Cart", new {viewname = "index"})" style="padding: 5px; border: 2px solid red;">Cart: @Html.Action("GetCartItemsCount", "Cart")</a>
+                </li>
+            </ul>
+        </nav>
+        <div class="main-text2">
+            <h1>GGshop<br>everything you need for your pet</h1>
+        </div>
+    </div>
+</header>
+<section class="main-content">
+    <div class="row">
+
+        @Html.Action("_CatMenu", "Store")
+        @RenderBody()
+
+    </div>
+</section>
+
+<footer>
+    <div class="row">
+        <div class="col span-1-of-2">
+            <ul id="autorzy">
+                <li>
+                    <p>Author:</p>
+                </li>
+                <li>
+                    <p>Damian Gawin</p>
+                </li>
+            </ul>
+        </div>
+        <div class="col span-1-of-4">
+            <ul class="icon">
+                <li>
+                    <ion-icon name="call"></ion-icon>
+                </li>
+                <li>&nbsp;</li>
+                <li>
+                    <ion-icon name="ios-at"></ion-icon>
+                </li>
+            </ul>
+        </div>
+        <div class="col span-1-of-4">
+            <ul>
+                <li>
+                    <p>Kontakt:</p>
+                </li>
+                <li>
+                    <p>Uniwersytet Gdański</p>
+                </li>
+                <li>
+                    <p>gawin.damian@gmail.com</p>
+                </li>
+            </ul>
+        </div>
+    </div>
+    <div class="row">
+        <p>2019. &copy; GGshop</p>
+    </div>
+</footer>
+
+@RenderSection("Scripts", required: false)
+
+</body>
+</html>

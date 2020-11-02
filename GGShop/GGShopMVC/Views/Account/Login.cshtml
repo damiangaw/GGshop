@@ -1,0 +1,49 @@
+﻿@model GGShopMVC.ViewModels.LoginViewModel
+@{
+    ViewBag.Title = "Login";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<div class="col span-4-of-5 js--topbar">
+    <div class="content">
+        <form action="@Url.Action("Login", "Account", new {ReturnUrl = ViewBag.ReturnUrl})" method="post" class="register-form">
+            @Html.AntiForgeryToken()
+            <div class="row">
+                @Html.ValidationMessage("loginerror", "")
+            </div>
+            <div class="row">
+                <div class="col span-1-of-3">
+                    @Html.LabelFor(o => o.Email, "E-mail:")
+                </div>
+                <div class="col span-2-of-3">
+                    <input id="Email" name="user" type="email" placeholder="e-mail..." autofocus required />
+                    @Html.ValidationMessage("Email")
+                </div>
+            </div>
+            <div class="row">
+                <div class="col span-1-of-3">
+                    @Html.LabelFor(o => o.Password, "Password: ")
+                </div>
+                <div class="col span-2-of-3">
+                    <input id="Password" type="password" name="pass" placeholder="password..." />
+                    @Html.ValidationMessage("Password")
+                </div>
+            </div>
+            <div class="row">
+                <div class="col span-1-of-3">
+                    <label for="Submit">&nbsp;</label>
+                </div>
+                <div class="col span-2-of-3">
+                    <input id="Submit" type="submit" value="Log in" />
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+@section Scripts
+{
+    <script src="~/Scripts/jquery-3.4.1.js"></script>
+    <script src="~/Scripts/jquery.validate.js"></script>
+    <script src="~/Scripts/jquery.validate.unobtrusive.js"></script>
+}
+

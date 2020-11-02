@@ -1,0 +1,15 @@
+﻿@model IEnumerable<GGShopMVC.Models.Category>
+
+<div class="col span-1-of-5 navi">
+    <p>Categories:</p>
+    <ul>
+        @foreach (var category in Model)
+        {
+            <li>
+                <a href="@Url.Action("List", "Store", new { categoryname = category.Name.ToLower() })">
+                    @category.Name
+                </a>
+            </li>
+        }
+    </ul>
+</div>
