@@ -8,3 +8,6 @@ Zastosowane technologie:
 
 *Damian Gawin, 2019r.*
 
+![Image of page_1](https://github.com/damiangaw/GGshop/blob/master/1.bmp)
+![Image of page_cart](https://github.com/damiangaw/GGshop/blob/master/2.bmp)
+![Image of page_2](https://github.com/damiangaw/GGshop/blob/master/3.bmp)
